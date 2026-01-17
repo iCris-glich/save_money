@@ -59,7 +59,7 @@ class ExpensesStatistics extends StatelessWidget {
                 interval: maxY / 4,
                 getTitlesWidget: (value, meta) {
                   return Text(
-                    value.toStringAsFixed(0),
+                    'Q${value.toStringAsFixed(0)}',
                     style: const TextStyle(fontSize: 10),
                   );
                 },
