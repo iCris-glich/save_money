@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:save_money/database/database.dart';
+import 'package:save_money/widget/expenses_statistics.dart';
 import 'package:save_money/widget/movimientos.dart';
 import 'package:save_money/widget/alert.dart';
 import 'package:save_money/widget/data_gra.dart';
@@ -101,7 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     const SizedBox(height: 20),
 
-                    SizedBox(height: 250),
+                    SizedBox(
+                      height: 250,
+                      child: Card(
+                        child: ExpensesStatistics(movimientos: movimientos),
+                      ),
+                    ),
                   ],
                 ),
               ),
