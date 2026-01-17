@@ -13,8 +13,33 @@ class Alert extends StatefulWidget {
 
 class AlertState extends State<Alert> {
   String _tipo = 'ingreso';
+  final List<String> _categoriasGasto = [
+    'Comida',
+    'Transporte',
+    'Vivienda',
+    'Servicios',
+    'Entretenimiento',
+    'Salud',
+    'Educación',
+    'Otros',
+  ];
+
+  final List<String> _categoriasIngreso = [
+    'Sueldo',
+    'Freelance',
+    'Venta',
+    'Otros',
+  ];
+
   final TextEditingController _monto = TextEditingController();
-  final TextEditingController _categoria = TextEditingController();
+  String? _categoriaSeleccinoda = null;
+  bool _isIngreso = true;
+
+  @override
+  void dispose() {
+    _monto.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +64,8 @@ class AlertState extends State<Alert> {
 
                 setState(() {
                   _tipo = value;
+                  _isIngreso = value == 'ingreso';
+                  _categoriaSeleccinoda = null;
                 });
               },
             ),
@@ -50,10 +77,20 @@ class AlertState extends State<Alert> {
               icon: Icon(Icons.money),
             ),
             const SizedBox(height: 10),
-            CustomTextfield(
-              controller: _categoria,
-              text: 'Ingresa la categoria',
-              icon: Icon(Icons.money),
+            DropdownButtonFormField<String>(
+              value: _categoriaSeleccinoda,
+              items: _isIngreso
+                  ? _categoriasIngreso.map((c) {
+                      return DropdownMenuItem(value: c, child: Text(c));
+                    }).toList()
+                  : _categoriasGasto.map((c) {
+                      return DropdownMenuItem(value: c, child: Text(c));
+                    }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _categoriaSeleccinoda = value!;
+                });
+              },
             ),
           ],
         ),
@@ -61,7 +98,9 @@ class AlertState extends State<Alert> {
       actions: [
         ElevatedButton(
           onPressed: () async {
-            if (_tipo == '' || _monto.text.isEmpty || _categoria.text.isEmpty) {
+            if (_tipo == '' ||
+                _monto.text.isEmpty ||
+                _categoriaSeleccinoda == null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: const Text('Llena todos los capos requeridos'),
@@ -71,7 +110,7 @@ class AlertState extends State<Alert> {
               await DatabaseHelper.instance.insertarMovimiento({
                 'tipo': _tipo,
                 'monto': double.tryParse(_monto.text) ?? 0,
-                'categoria': _categoria.text,
+                'categoria': _categoriaSeleccinoda,
                 'fecha': DateTime.now().toIso8601String(),
               });
               Navigator.pop(context, true);
