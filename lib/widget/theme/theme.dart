@@ -5,6 +5,7 @@ class AppTheme {
   static ThemeData get ligth => ThemeData(
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.primary,
+      // ignore: deprecated_member_use
       background: AppColors.background,
       error: AppColors.danger,
     ),
@@ -17,8 +18,11 @@ class AppTheme {
     ),
 
     textTheme: const TextTheme(
-      bodyMedium: TextStyle(color: AppColors.textPrimary),
-      bodySmall: TextStyle(color: AppColors.textSecondary),
+      bodyMedium: TextStyle(color: AppColors.textPrimary, fontFamily: 'PTSans'),
+      bodySmall: TextStyle(
+        color: AppColors.textSecondary,
+        fontFamily: 'PTSans',
+      ),
     ),
 
     useMaterial3: true,

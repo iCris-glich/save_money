@@ -19,6 +19,7 @@ class SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     conteo().then((_) {
+      // ignore: use_build_context_synchronously
       context.go('/');
     });
   }

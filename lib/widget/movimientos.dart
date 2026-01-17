@@ -74,6 +74,7 @@ class ListaMovimientos extends StatelessWidget {
                               await DatabaseHelper.instance.quitarMovimiento(
                                 m.id,
                               );
+                              // ignore: use_build_context_synchronously
                               Navigator.pop(context);
                               actualizar();
                             },

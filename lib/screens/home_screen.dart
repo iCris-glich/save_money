@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:save_money/database/database.dart';
+import 'package:save_money/widget/custom_appbar.dart';
 import 'package:save_money/widget/expenses_statistics.dart';
 import 'package:save_money/widget/movimientos.dart';
 import 'package:save_money/widget/alert.dart';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CustomAppbar(text: 'Save Money'),
       body: FutureBuilder<List<Movimiento>>(
         future: _movimientosFuturos,
         builder: (context, snapshot) {

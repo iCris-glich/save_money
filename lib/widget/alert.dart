@@ -32,7 +32,7 @@ class AlertState extends State<Alert> {
   ];
 
   final TextEditingController _monto = TextEditingController();
-  String? _categoriaSeleccinoda = null;
+  String? _categoriaSeleccinoda;
   bool _isIngreso = true;
 
   @override
@@ -78,7 +78,7 @@ class AlertState extends State<Alert> {
             ),
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
-              value: _categoriaSeleccinoda,
+              initialValue: _categoriaSeleccinoda,
               items: _isIngreso
                   ? _categoriasIngreso.map((c) {
                       return DropdownMenuItem(value: c, child: Text(c));
@@ -113,6 +113,7 @@ class AlertState extends State<Alert> {
                 'categoria': _categoriaSeleccinoda,
                 'fecha': DateTime.now().toIso8601String(),
               });
+              // ignore: use_build_context_synchronously
               Navigator.pop(context, true);
             }
           },
